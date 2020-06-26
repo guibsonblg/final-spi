@@ -1,0 +1,80 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Cadastrar Jogador</h1>
+    <form (ngSubmit)="onSubmit()" #playerForm="ngForm">
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.name" name="name"
+               #name="ngModel">
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Nome é obrigatório
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="number">Número da Camisa</label>
+        <input type="text" class="form-control" id="number"
+               required
+               [(ngModel)]="model.number" name="number"
+               #number="ngModel">
+        <div [hidden]="number.valid || number.pristine"
+             class="alert alert-danger">
+          Número é obrigatório
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="club">Clube</label>
+        <input type="text" class="form-control" id="club"
+               required
+               [(ngModel)]="model.club" name="club"
+               #club="ngModel">
+        <div [hidden]="club.valid || club.pristine"
+             class="alert alert-danger">
+          Clube is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="position">Posição</label>
+        <select class="form-control" id="position"
+                required
+                [(ngModel)]="model.position" name="position"
+                #position="ngModel">
+          <option *ngFor="let pos of positions" [value]="pos">{{pos}}</option>
+        </select>
+        <div [hidden]="position.valid || position.pristine" class="alert alert-danger">
+          Posição
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!playerForm.form.valid" style="margin-right: 5px;">Enviar</button>
+      <button type="button" class="btn btn-default" (click)="newPlayer(); playerForm.reset()">Limpar</button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>Você registrou esse jogador:</h2>
+    <div class="row">
+      <div class="col-xs-3">Nome</div>
+      <div class="col-xs-9">{{ model.name }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Número da Camisa</div>
+      <div class="col-xs-9">{{ model.number }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Clube</div>
+      <div class="col-xs-9">{{ model.club }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Posição</div>
+      <div class="col-xs-9">{{ model.position }}</div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Editar</button>
+  </div>
+</div>
